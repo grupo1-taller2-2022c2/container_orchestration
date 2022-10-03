@@ -32,6 +32,7 @@ services:
       - DATABASE_URL=postgresql://postgres:grupo1@postgres-container:5432/postgres
       - POSTGRES_PASSWORD=grupo1
       - LOG_LEVEL=debug
+      - GUNICORN_CMD_ARGS="--reload"
     depends_on:
       - dev_db
     networks:
@@ -73,6 +74,8 @@ services:
     environment:
       - PORT=3000
       - LOG_LEVEL=debug
+      - USERS_BASE_URL=http://users-backend-container:3000
+      - GUNICORN_CMD_ARGS="--reload"
     networks:
       - my_network
 
