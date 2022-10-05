@@ -27,6 +27,8 @@ Module in charge of orchestrating all containers (one for each microservice, dat
 3. If you want to stop and delete all current containers related to this project run `./stop_and_delete_containers.sh`
 4. Make sure all repos are in the branches with the latest working solution. This should be corrected later (cloning from git the corresponding branch in every build)
 5. Si hay problemas porque algún proceso está usando un puerto, se puede hacer `sudo netstat -ano -p tcp | grep <puerto>` y agarrás el PID y le haces `sudo kill -9 <pid>` para matarlo
+6. Si hay problemas con cosas de espacio (ej. *Failed to write all bytes for libcrypto.so.1.1 - fwrite: No space left on device*), podemos liberar espacio que no usamos corriendo `docker system prune -af`
+)
 
 - Cualquier cosa [este enlace tiene info interesante](https://ahmed-nafies.medium.com/fastapi-with-sqlalchemy-postgresql-and-alembic-and-of-course-docker-f2b7411ee396)
 
