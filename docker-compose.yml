@@ -15,7 +15,7 @@ services:
 
   users_backend:
     restart: always
-    build: ..//users/ 
+    build: ./users/ 
     container_name: users-backend-container
     stdin_open: true 
     tty: true        
@@ -40,7 +40,7 @@ services:
 
   backoffice_frontend:
     restart: always
-    build: ..//skeleton-app/ # Poner acá la ruta para el dockerfile del front
+    build: ./skeleton-app/ # Poner acá la ruta para el dockerfile del front
     container_name: backoffice-frontend-container
     stdin_open: true 
     tty: true        
@@ -61,7 +61,7 @@ services:
 
   api_gateway:
     restart: always
-    build: ..//api_gateway/ 
+    build: ./api_gateway/ 
     container_name: api-gateway-container
     stdin_open: true 
     tty: true        
