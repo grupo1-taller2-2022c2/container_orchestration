@@ -15,16 +15,17 @@ services:
 
   users_backend:
     restart: always
-    build: ./users/ 
+    build: ..//users/ 
     container_name: users-backend-container
     stdin_open: true 
-    tty: true        
+    tty: true
+    entrypoint: ../start-reload.sh # Para que se haga el live reload        
     ports:
       - 3001:3000
     expose:
       - 3000
     volumes:
-      - ./users:/app
+      - ..//users:/app
     links:
       - dev_db
     environment:
@@ -32,7 +33,6 @@ services:
       - DATABASE_URL=postgresql://postgres:grupo1@postgres-container:5432/postgres
       - POSTGRES_PASSWORD=grupo1
       - LOG_LEVEL=debug
-      - GUNICORN_CMD_ARGS="--reload"
     depends_on:
       - dev_db
     networks:
@@ -40,7 +40,7 @@ services:
 
   backoffice_frontend:
     restart: always
-    build: ./backoffice-front/ 
+    build: ..//backoffice-front/ 
     container_name: backoffice-frontend-container
     stdin_open: true 
     tty: true        
@@ -51,7 +51,7 @@ services:
     expose:
       - 3000
     volumes:
-      - ./backoffice-front:/webgui
+      - ..//backoffice-front:/webgui
     environment:
       - REACT_APP_BACKEND_DIRECTION=http://localhost:3001
       - PORT=3000
@@ -60,21 +60,21 @@ services:
 
   api_gateway:
     restart: always
-    build: ./api_gateway/ 
+    build: ..//api_gateway/ 
     container_name: api-gateway-container
     stdin_open: true 
-    tty: true        
+    tty: true
+    entrypoint: ../start-reload.sh        
     ports:
       - 3005:3000
     expose:
       - 3000
     volumes:
-      - ./api_gateway:/app
+      - ..//api_gateway:/app
     environment:
       - PORT=3000
       - LOG_LEVEL=debug
       - USERS_BASE_URL=http://users-backend-container:3000
-      - GUNICORN_CMD_ARGS="--reload"
     networks:
       - my_network
 

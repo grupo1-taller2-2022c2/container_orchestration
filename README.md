@@ -9,13 +9,16 @@ Module in charge of orchestrating all containers (one for each microservice, dat
 4. Make sure all repos are in the branches with the latest working solution. This should be corrected later (cloning from git the corresponding branch in every build)
 5. Si hay problemas porque algún proceso está usando un puerto, se puede hacer `sudo netstat -ano -p tcp | grep <puerto>` y agarrás el PID y le haces `sudo kill -9 <pid>` para matarlo
 
-# Commands for working with git
+-----------------------------
+-----------------------------
+
+## Commands for working with git submodules (we are not using this)
 More info at https://git-scm.com/book/en/v2/Git-Tools-Submodules
 
 - `git submodule add` --> para agregar un nuevo submodule
 - `git clone --recurse-submodules https://github.com/grupo1-taller2-2022c2/container_orchestration.git` --> para clonar este mismo repo con todos los submodulos dentro listos
 - `git submodule update --remote _nombre_submodule_` --> para pullear cambios del remoto de ese submodulo, por defecto en la branch que en remoto apunte a HEAD
-- `git config -f .gitmodules submodule.DbConnector.branch _branch_a_trackear_` --> para hacer que un submodule trackee una branch en específico, así solo pullea de esa branch
+- `git config -f .gitmodules submodule.__nombre_modulo__.branch _branch_a_trackear_` --> para hacer que un submodule trackee una branch en específico, así solo pullea de esa branch
 - `git status`
 - `git config status.submodulesummary 1; git status` --> para que muestre el detalle por cada submodule
 - `git submodule foreach git pull` --> hace pull en todas los submodules

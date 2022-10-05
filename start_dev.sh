@@ -8,7 +8,7 @@
 git config --global credential.helper 'cache --timeout=86400'
 
 # Pulling changes from repos
-git submodule update --remote # # git submodule foreach git pull #origin main
+./update_repos.sh
 
 # Lifting containers
 docker-compose up -d $DB_SERVICE_NAME 
