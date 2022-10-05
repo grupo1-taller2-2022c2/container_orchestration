@@ -8,7 +8,7 @@
 #   This is to cache credentials so as not to enter them all the time
 git config --global credential.helper 'cache --timeout=86400'
 git config --global credential.helper cache
-git submodule foreach git pull 
+git submodule foreach git pull origin main
 
 # Lifting containers
 docker-compose up -d $DB_SERVICE_NAME 

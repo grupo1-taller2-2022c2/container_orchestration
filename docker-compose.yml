@@ -40,7 +40,7 @@ services:
 
   backoffice_frontend:
     restart: always
-    build: ./skeleton-app/ # Poner acá la ruta para el dockerfile del front
+    build: ./backoffice-front/ 
     container_name: backoffice-frontend-container
     stdin_open: true 
     tty: true        
@@ -52,7 +52,7 @@ services:
     expose:
       - 3000
     volumes:
-      - ..//skeleton-app:/webgui
+      - ..//backoffice-front:/webgui
     environment:
       - REACT_APP_BACKEND_DIRECTION=http://localhost:3001
       - PORT=3000
