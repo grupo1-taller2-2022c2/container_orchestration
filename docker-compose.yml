@@ -24,7 +24,7 @@ services:
     expose:
       - 3000
     volumes:
-      - ..//users:/app
+      - ./users:/app
     links:
       - dev_db
     environment:
@@ -48,11 +48,10 @@ services:
       - 3003:3000
     depends_on:
       - dev_db
-      # - users_backend
     expose:
       - 3000
     volumes:
-      - ..//backoffice-front:/webgui
+      - ./backoffice-front:/webgui
     environment:
       - REACT_APP_BACKEND_DIRECTION=http://localhost:3001
       - PORT=3000
@@ -70,7 +69,7 @@ services:
     expose:
       - 3000
     volumes:
-      - ..//api_gateway:/app
+      - ./api_gateway:/app
     environment:
       - PORT=3000
       - LOG_LEVEL=debug

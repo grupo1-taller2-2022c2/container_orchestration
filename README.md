@@ -10,6 +10,8 @@ Module in charge of orchestrating all containers (one for each microservice, dat
 5. Si hay problemas porque algún proceso está usando un puerto, se puede hacer `sudo netstat -ano -p tcp | grep <puerto>` y agarrás el PID y le haces `sudo kill -9 <pid>` para matarlo
 
 # Commands for working with git
+More info at https://git-scm.com/book/en/v2/Git-Tools-Submodules
+
 - `git submodule add` --> para agregar un nuevo submodule
 - `git clone --recurse-submodules https://github.com/grupo1-taller2-2022c2/container_orchestration.git` --> para clonar este mismo repo con todos los submodulos dentro listos
 - `git submodule update --remote _nombre_submodule_` --> para pullear cambios del remoto de ese submodulo, por defecto en la branch que en remoto apunte a HEAD
