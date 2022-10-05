@@ -2,6 +2,8 @@
 
 . constants.env
 
+# Este script se explica en el README
+
 ./stop_and_delete_containers.sh
 
 # This is to cache credentials so as not to enter them all the time
