@@ -112,7 +112,7 @@ services:
     volumes:
       - ..//trips:/app
     links:
-      - users_dev_db
+      - trips_dev_db
     environment:
       - PORT=3000
       - DATABASE_URL=postgresql://postgres:grupo1@trips-ms-dev-db-container:5432/postgres
@@ -132,6 +132,43 @@ services:
       - 5432
     ports:
       - 6544:5432
+    networks:
+      - my_network
+
+  backoffice_backend:
+    restart: always
+    build: ..//backoffice/ 
+    container_name: backoffice-backend-container
+    stdin_open: true 
+    tty: true
+    entrypoint: ../start-reload.sh # Para que se haga el live reload        
+    ports:
+      - 3007:3000
+    expose:
+      - 3000
+    volumes:
+      - ..//backoffice:/app
+    links:
+      - backoffice_dev_db
+    environment:
+      - PORT=3000
+      - DATABASE_URL=postgresql://postgres:grupo1@backoffice-ms-dev-db-container:5432/postgres
+      - POSTGRES_PASSWORD=grupo1
+      - LOG_LEVEL=debug
+    depends_on:
+      - backoffice_dev_db
+    networks:
+      - my_network
+
+  backoffice_dev_db:
+    image: postgres
+    container_name: backoffice-ms-dev-db-container
+    environment:
+      - POSTGRES_PASSWORD=grupo1
+    expose:
+      - 5432
+    ports:
+      - 6545:5432
     networks:
       - my_network
 

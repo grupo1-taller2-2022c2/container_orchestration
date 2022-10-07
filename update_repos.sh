@@ -9,7 +9,8 @@ declare -a arr=($API_GATEWAY_REPO_NAME
                 $BACKOFFICE_FRONT_REPO_NAME
                 $MOBILE_APP_REPO_NAME
                 $USERS_MS_REPO_NAME
-                $TRIPS_MS_REPO_NAME)
+                $TRIPS_MS_REPO_NAME
+                $BACKOFFICE_MS_REPO_NAME)
 
 for repo in "${arr[@]}"
 do

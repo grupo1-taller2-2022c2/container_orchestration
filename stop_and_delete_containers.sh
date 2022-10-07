@@ -10,3 +10,5 @@ echo "Deleting containers if exist..."
 { docker ps -q -f name=$USERS_DB_CONTAINER_NAME | xargs docker stop | xargs docker rm; } 2>> /dev/null || echo
 { docker ps -q -f name=$TRIPS_MS_CONTAINER_NAME | xargs docker stop | xargs docker rm; } 2>> /dev/null || echo
 { docker ps -q -f name=$TRIPS_DB_CONTAINER_NAME | xargs docker stop | xargs docker rm; } 2>> /dev/null || echo
+{ docker ps -q -f name=$BACKOFFICE_MS_CONTAINER_NAME | xargs docker stop | xargs docker rm; } 2>> /dev/null || echo
+{ docker ps -q -f name=$BACKOFFICE_DB_CONTAINER_NAME | xargs docker stop | xargs docker rm; } 2>> /dev/null || echo
