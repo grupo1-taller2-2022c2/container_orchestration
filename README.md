@@ -1,6 +1,12 @@
 ## container_orchestration
 Module in charge of orchestrating all containers (one for each microservice, database and frontend) for development
 
+# Puertos:
+* backoffice front: 3003
+* api_gateway: 3005
+* users: 3001
+* trips: 3002
+
 # Cómo desarrollar (ambiente de dev)
 - Siempre que queramos codear (sin instalar nada en nuestras máquinas) tenemos que ejecutar ```./start_dev```
 - Esto va a hacer varias cosas:

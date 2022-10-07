@@ -1,53 +1,16 @@
 version: "3.3"
 services:
 
-  dev_db:
-    image: postgres
-    container_name: postgres-container
-    environment:
-      - POSTGRES_PASSWORD=grupo1
-    expose:
-      - 5432
-    ports:
-      - 6543:5432
-    networks:
-      - my_network
-
-  users_backend:
-    restart: always
-    build: ..//users/ 
-    container_name: users-backend-container
-    stdin_open: true 
-    tty: true
-    entrypoint: ../start-reload.sh # Para que se haga el live reload        
-    ports:
-      - 3001:3000
-    expose:
-      - 3000
-    volumes:
-      - ..//users:/app
-    links:
-      - dev_db
-    environment:
-      - PORT=3000
-      - DATABASE_URL=postgresql://postgres:grupo1@postgres-container:5432/postgres
-      - POSTGRES_PASSWORD=grupo1
-      - LOG_LEVEL=debug
-    depends_on:
-      - dev_db
-    networks:
-      - my_network
-
   backoffice_frontend:
     restart: always
     build: ..//backoffice-front/ 
-    container_name: backoffice-frontend-container
+    container_name: backoffice-front-container
     stdin_open: true 
     tty: true        
     ports:
       - 3003:3000
     depends_on:
-      - dev_db
+      - users_dev_db
     expose:
       - 3000
     volumes:
@@ -74,7 +37,81 @@ services:
     environment:
       - PORT=3000
       - LOG_LEVEL=debug
-      - USERS_BASE_URL=http://users-backend-container:3000
+      - USERS_BASE_URL=http://users-ms-container:3000
+    networks:
+      - my_network
+
+  users_backend:
+    restart: always
+    build: ..//users/ 
+    container_name: users-ms-container
+    stdin_open: true 
+    tty: true
+    entrypoint: ../start-reload.sh # Para que se haga el live reload        
+    ports:
+      - 3001:3000
+    expose:
+      - 3000
+    volumes:
+      - ..//users:/app
+    links:
+      - users_dev_db
+    environment:
+      - PORT=3000
+      - DATABASE_URL=postgresql://postgres:grupo1@users-ms-dev-db-container:5432/postgres
+      - POSTGRES_PASSWORD=grupo1
+      - LOG_LEVEL=debug
+    depends_on:
+      - users_dev_db
+    networks:
+      - my_network
+
+  users_dev_db:
+    image: postgres
+    container_name: users-ms-dev-db-container
+    environment:
+      - POSTGRES_PASSWORD=grupo1
+    expose:
+      - 5432
+    ports:
+      - 6543:5432
+    networks:
+      - my_network
+
+  trips_backend:
+    restart: always
+    build: ..//trips/ 
+    container_name: trips-backend-container
+    stdin_open: true 
+    tty: true
+    entrypoint: ../start-reload.sh # Para que se haga el live reload        
+    ports:
+      - 3002:3000
+    expose:
+      - 3000
+    volumes:
+      - ..//trips:/app
+    links:
+      - users_dev_db
+    environment:
+      - PORT=3000
+      - DATABASE_URL=postgresql://postgres:grupo1@trips-ms-dev-db-container:5432/postgres
+      - POSTGRES_PASSWORD=grupo1
+      - LOG_LEVEL=debug
+    depends_on:
+      - trips_dev_db
+    networks:
+      - my_network
+
+  trips_dev_db:
+    image: postgres
+    container_name: trips-ms-dev-db-container
+    environment:
+      - POSTGRES_PASSWORD=grupo1
+    expose:
+      - 5432
+    ports:
+      - 6544:5432
     networks:
       - my_network
 
