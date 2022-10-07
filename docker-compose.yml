@@ -41,6 +41,26 @@ services:
     networks:
       - my_network
 
+  backoffice_api_gateway:
+    restart: always
+    build: ..//backoffice_api_gateway/ 
+    container_name: backoffice-api-gateway-container
+    stdin_open: true 
+    tty: true
+    entrypoint: ../start-reload.sh        
+    ports:
+      - 3006:3000
+    expose:
+      - 3000
+    volumes:
+      - ..//backoffice_api_gateway:/app
+    environment:
+      - PORT=3000
+      - LOG_LEVEL=debug
+      # - BACKOFFICE_BASE_URL=http://users-ms-container:3007
+    networks:
+      - my_network
+
   users_backend:
     restart: always
     build: ..//users/ 

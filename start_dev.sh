@@ -20,6 +20,7 @@ sleep 5
 
 docker-compose up -d $BACKOFFICE_FRONT_SERVICE_NAME
 docker-compose up -d $API_GATEWAY_SERVICE_NAME
+docker-compose up -d $BACKOFFICE_API_GATEWAY_SERVICE_NAME
 docker-compose up -d $USERS_MS_SERVICE_NAME
 docker-compose up -d $TRIPS_MS_SERVICE_NAME
 
@@ -28,6 +29,7 @@ sleep 3
 # Logging in files
 docker-compose logs -f --no-color --tail=1000 $BACKOFFICE_FRONT_SERVICE_NAME > logs/backoffice_front_logs.txt &
 docker-compose logs -f --no-color --tail=1000 $API_GATEWAY_SERVICE_NAME > logs/api_gateway_logs.txt &
+docker-compose logs -f --no-color --tail=1000 $BACKOFFICE_API_GATEWAY_SERVICE_NAME > logs/backoffice_api_gateway_logs.txt &
 docker-compose logs -f --no-color --tail=1000 $USERS_MS_SERVICE_NAME > logs/users_logs.txt &
 docker-compose logs -f --no-color --tail=1000 $USERS_DB_SERVICE_NAME > logs/users_database_logs.txt &
 docker-compose logs -f --no-color --tail=1000 $TRIPS_MS_SERVICE_NAME > logs/trips_logs.txt &
