@@ -29,6 +29,7 @@ docker-compose up -d $BACKOFFICE_MS_SERVICE_NAME
 sleep 3
 
 # Logging in files
+mkdir logs &
 docker-compose logs -f --no-color --tail=1000 $BACKOFFICE_FRONT_SERVICE_NAME > logs/backoffice_front_logs.txt &
 docker-compose logs -f --no-color --tail=1000 $API_GATEWAY_SERVICE_NAME > logs/api_gateway_logs.txt &
 docker-compose logs -f --no-color --tail=1000 $BACKOFFICE_API_GATEWAY_SERVICE_NAME > logs/backoffice_api_gateway_logs.txt &
