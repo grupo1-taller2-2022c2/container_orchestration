@@ -57,7 +57,7 @@ services:
     environment:
       - PORT=3000
       - LOG_LEVEL=debug
-      - BACKOFFICE_BASE_URL=http://backoffice-backend-container:3007
+      - BACKOFFICE_BASE_URL=http://backoffice-ms-container:3000
     networks:
       - my_network
 
@@ -101,7 +101,7 @@ services:
   trips_backend:
     restart: always
     build: ..//trips/ 
-    container_name: trips-backend-container
+    container_name: trips-ms-container
     stdin_open: true 
     tty: true
     entrypoint: ../start-reload.sh # Para que se haga el live reload        
@@ -138,7 +138,7 @@ services:
   backoffice_backend:
     restart: always
     build: ..//backoffice/ 
-    container_name: backoffice-backend-container
+    container_name: backoffice-ms-container
     stdin_open: true 
     tty: true
     entrypoint: ../start-reload.sh # Para que se haga el live reload        
@@ -155,6 +155,7 @@ services:
       - DATABASE_URL=postgresql://postgres:grupo1@backoffice-ms-dev-db-container:5432/postgres
       - POSTGRES_PASSWORD=grupo1
       - LOG_LEVEL=debug
+      - USERS_BASE_URL=http://users-ms-container:3000
     depends_on:
       - backoffice_dev_db
     networks:
