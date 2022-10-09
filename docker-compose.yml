@@ -57,7 +57,7 @@ services:
     environment:
       - PORT=3000
       - LOG_LEVEL=debug
-      # - BACKOFFICE_BASE_URL=http://users-ms-container:3007
+      - BACKOFFICE_BASE_URL=http://backoffice-backend-container:3007
     networks:
       - my_network
 
