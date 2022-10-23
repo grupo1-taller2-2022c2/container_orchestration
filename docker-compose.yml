@@ -38,6 +38,7 @@ services:
       - PORT=3000
       - LOG_LEVEL=debug
       - USERS_BASE_URL=http://users-ms-container:3000
+      - TRIPS_BASE_URL=http://trips-ms-container:3000
     networks:
       - my_network
 
