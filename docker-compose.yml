@@ -82,6 +82,7 @@ services:
       - DATABASE_URL=postgresql://postgres:grupo1@users-ms-dev-db-container:5432/postgres
       - POSTGRES_PASSWORD=grupo1
       - LOG_LEVEL=debug
+      - BACKOFFICE_BASE_URL=http://backoffice-ms-container:3000
     depends_on:
       - users_dev_db
     networks:
