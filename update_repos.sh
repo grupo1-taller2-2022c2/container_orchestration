@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. constants.env
+. .env
 
 # Si le pasas el nombre de una branch, te checkoutea todos los repos a esa branch (hacer esto si está todo commiteado)
 branch_to_use=${1:-'current'}

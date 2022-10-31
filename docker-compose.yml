@@ -1,20 +1,38 @@
 version: "3.3"
 services:
 
+  mobile-app:
+    restart: always
+    build: ..//mobile-app/ 
+    container_name: ${MOBILE_APP_CONTAINER_NAME}
+    stdin_open: true 
+    tty: true        
+    ports:
+      - 19006:19006
+    expose:
+      - 19006
+    volumes:
+      - ..//mobile-app:/app
+      - /app/node_modules
+    environment:
+      - PORT=19006
+      - REACT_APP_API_GATEWAY_HOST=${HOST_PRIVATE_IP}
+    networks:
+      - my_network
+
   backoffice_frontend:
     restart: always
     build: ..//backoffice-front/ 
-    container_name: backoffice-front-container
+    container_name: ${BACKOFFICE_FRONT_CONTAINER_NAME}
     stdin_open: true 
     tty: true        
     ports:
       - 3003:3000
-    depends_on:
-      - users_dev_db
     expose:
       - 3000
     volumes:
       - ..//backoffice-front:/webgui
+      - /webgui/node_modules
     environment:
       - REACT_APP_BACKEND_DIRECTION=http://localhost:3001
       - PORT=3000
@@ -24,7 +42,7 @@ services:
   api_gateway:
     restart: always
     build: ..//api_gateway/ 
-    container_name: api-gateway-container
+    container_name: ${API_GATEWAY_CONTAINER_NAME}
     stdin_open: true 
     tty: true
     entrypoint: ../start-reload.sh        
@@ -37,15 +55,15 @@ services:
     environment:
       - PORT=3000
       - LOG_LEVEL=debug
-      - USERS_BASE_URL=http://users-ms-container:3000
-      - TRIPS_BASE_URL=http://trips-ms-container:3000
+      - USERS_BASE_URL=http://${USERS_MS_CONTAINER_NAME}:3000
+      - TRIPS_BASE_URL=http://${TRIPS_MS_CONTAINER_NAME}:3000
     networks:
       - my_network
 
   backoffice_api_gateway:
     restart: always
     build: ..//backoffice_api_gateway/ 
-    container_name: backoffice-api-gateway-container
+    container_name: ${BACKOFFICE_API_GATEWAY_CONTAINER_NAME}
     stdin_open: true 
     tty: true
     entrypoint: ../start-reload.sh        
@@ -58,14 +76,14 @@ services:
     environment:
       - PORT=3000
       - LOG_LEVEL=debug
-      - BACKOFFICE_BASE_URL=http://backoffice-ms-container:3000
+      - BACKOFFICE_BASE_URL=http://${BACKOFFICE_MS_CONTAINER_NAME}:3000
     networks:
       - my_network
 
   users_backend:
     restart: always
     build: ..//users/ 
-    container_name: users-ms-container
+    container_name: ${USERS_MS_CONTAINER_NAME}
     stdin_open: true 
     tty: true
     entrypoint: ../start-reload.sh # Para que se haga el live reload        
@@ -76,21 +94,21 @@ services:
     volumes:
       - ..//users:/app
     links:
-      - users_dev_db
+      - ${USERS_DB_SERVICE_NAME}
     environment:
       - PORT=3000
-      - DATABASE_URL=postgresql://postgres:grupo1@users-ms-dev-db-container:5432/postgres
+      - DATABASE_URL=postgresql://postgres:grupo1@${USERS_DB_CONTAINER_NAME}:5432/postgres
       - POSTGRES_PASSWORD=grupo1
       - LOG_LEVEL=debug
-      - BACKOFFICE_BASE_URL=http://backoffice-ms-container:3000
+      - BACKOFFICE_BASE_URL=http://${BACKOFFICE_MS_CONTAINER_NAME}:3000
     depends_on:
-      - users_dev_db
+      - ${USERS_DB_SERVICE_NAME}
     networks:
       - my_network
 
   users_dev_db:
     image: postgres
-    container_name: users-ms-dev-db-container
+    container_name: ${USERS_DB_CONTAINER_NAME}
     environment:
       - POSTGRES_PASSWORD=grupo1
     expose:
@@ -103,7 +121,7 @@ services:
   trips_backend:
     restart: always
     build: ..//trips/ 
-    container_name: trips-ms-container
+    container_name: ${TRIPS_MS_CONTAINER_NAME}
     stdin_open: true 
     tty: true
     entrypoint: ../start-reload.sh # Para que se haga el live reload        
@@ -114,21 +132,21 @@ services:
     volumes:
       - ..//trips:/app
     links:
-      - trips_dev_db
+      - ${TRIPS_DB_SERVICE_NAME}
     environment:
       - PORT=3000
-      - DATABASE_URL=postgresql://postgres:grupo1@trips-ms-dev-db-container:5432/postgres
+      - DATABASE_URL=postgresql://postgres:grupo1@${TRIPS_DB_CONTAINER_NAME}:5432/postgres
       - POSTGRES_PASSWORD=grupo1
       - LOG_LEVEL=debug
-      - USERS_BASE_URL=http://users-ms-container:3000
+      - USERS_BASE_URL=http://${USERS_MS_CONTAINER_NAME}:3000
     depends_on:
-      - trips_dev_db
+      - ${TRIPS_DB_SERVICE_NAME}
     networks:
       - my_network
 
   trips_dev_db:
     image: postgres
-    container_name: trips-ms-dev-db-container
+    container_name: ${TRIPS_DB_CONTAINER_NAME}
     environment:
       - POSTGRES_PASSWORD=grupo1
     expose:
@@ -141,7 +159,7 @@ services:
   backoffice_backend:
     restart: always
     build: ..//backoffice/ 
-    container_name: backoffice-ms-container
+    container_name: ${BACKOFFICE_MS_CONTAINER_NAME}
     stdin_open: true 
     tty: true
     entrypoint: ../start-reload.sh # Para que se haga el live reload        
@@ -152,21 +170,21 @@ services:
     volumes:
       - ..//backoffice:/app
     links:
-      - backoffice_dev_db
+      - ${BACKOFFICE_DB_SERVICE_NAME}
     environment:
       - PORT=3000
-      - DATABASE_URL=postgresql://postgres:grupo1@backoffice-ms-dev-db-container:5432/postgres
+      - DATABASE_URL=postgresql://postgres:grupo1@${BACKOFFICE_DB_CONTAINER_NAME}:5432/postgres
       - POSTGRES_PASSWORD=grupo1
       - LOG_LEVEL=debug
-      - USERS_BASE_URL=http://users-ms-container:3000
+      - USERS_BASE_URL=http://${USERS_MS_CONTAINER_NAME}:3000
     depends_on:
-      - backoffice_dev_db
+      - ${BACKOFFICE_DB_SERVICE_NAME}
     networks:
       - my_network
 
   backoffice_dev_db:
     image: postgres
-    container_name: backoffice-ms-dev-db-container
+    container_name: ${BACKOFFICE_DB_CONTAINER_NAME}
     environment:
       - POSTGRES_PASSWORD=grupo1
     expose:

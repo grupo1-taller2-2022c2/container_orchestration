@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. constants.env
+. .env
 
 ./stop_and_delete_containers.sh
 

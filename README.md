@@ -3,6 +3,7 @@ Module in charge of orchestrating all containers (one for each microservice, dat
 
 # Puertos:
 * backoffice front: 3003
+* mobile-app: 3004
 * api_gateway: 3005
 * backoffice_api_gateway: 3006
 * users: 3001

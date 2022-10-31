@@ -1,6 +1,10 @@
 #!/bin/bash
 
-. constants.env
+. .env
+
+localhost_private_ip=`hostname -I | awk '{print $1}'`
+echo $localhost_private_ip
+export HOST_PRIVATE_IP=$localhost_private_ip 
 
 # Este script se explica en el README
 
@@ -17,19 +21,16 @@ docker-compose up -d $USERS_DB_SERVICE_NAME
 docker-compose up -d $TRIPS_DB_SERVICE_NAME
 docker-compose up -d $BACKOFFICE_DB_SERVICE_NAME 
 
-sleep 5
-
 docker-compose up -d $BACKOFFICE_FRONT_SERVICE_NAME
+
 docker-compose up -d $API_GATEWAY_SERVICE_NAME
 docker-compose up -d $BACKOFFICE_API_GATEWAY_SERVICE_NAME
+
 docker-compose up -d $USERS_MS_SERVICE_NAME
 docker-compose up -d $TRIPS_MS_SERVICE_NAME
 docker-compose up -d $BACKOFFICE_MS_SERVICE_NAME
 
 sleep 5
-
-# Logging in files
-mkdir logs
 
 echo "Applying migrations to users database..."
 docker-compose exec $USERS_MS_SERVICE_NAME alembic upgrade head || echo "Wait for image to build and run ./start_dev.sh again..."
@@ -43,4 +44,8 @@ docker-compose exec $BACKOFFICE_MS_SERVICE_NAME alembic upgrade head || echo "Wa
 echo ""
 echo "In case you want to enter inside any docker with bash, run: docker-compose exec _service_name_ /bin/bash"
 
+# Logging in files
+mkdir logs
 ./log_containers.sh
+
+docker-compose up $MOBILE_APP_SERVICE_NAME
