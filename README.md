@@ -44,14 +44,5 @@ Module in charge of orchestrating all containers (one for each microservice, dat
 -----------------------------
 -----------------------------
 
-## (No lo usamos) Commands for working with git submodules
-More info at https://git-scm.com/book/en/v2/Git-Tools-Submodules
-
-- `git submodule add` --> para agregar un nuevo submodule
-- `git clone --recurse-submodules https://github.com/grupo1-taller2-2022c2/container_orchestration.git` --> para clonar este mismo repo con todos los submodulos dentro listos
-- `git submodule update --remote _nombre_submodule_` --> para pullear cambios del remoto de ese submodulo, por defecto en la branch que en remoto apunte a HEAD
-- `git config -f .gitmodules submodule.__nombre_modulo__.branch _branch_a_trackear_` --> para hacer que un submodule trackee una branch en específico, así solo pullea de esa branch
-- `git status`
-- `git config status.submodulesummary 1; git status` --> para que muestre el detalle por cada submodule
-- `git submodule foreach git pull` --> hace pull en todas los submodules
-- `cd _submodule_; git pull` --> hace pull dentro del modulo
+## Liberar espacio de containers, volumenes, imagenes, etc.
+`docker system prune --volumes`
