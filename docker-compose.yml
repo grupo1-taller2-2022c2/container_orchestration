@@ -82,6 +82,7 @@ services:
       - POSTGRES_PASSWORD=grupo1
       - LOG_LEVEL=debug
       - BACKOFFICE_BASE_URL=http://${BACKOFFICE_MS_CONTAINER_NAME}:3000
+      - WALLETS_BASE_URL=http://${WALLETS_MS_CONTAINER_NAME}:3000
     depends_on:
       - ${USERS_DB_SERVICE_NAME}
     networks:

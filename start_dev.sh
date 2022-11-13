@@ -47,5 +47,5 @@ mkdir logs
 # Periódicamente loguea en los archivos 
 # watch -n 10 -b ./log_containers.sh & 
 
-./log_containers
-# docker-compose logs -f -t --tail=1000
+# ./log_containers.sh
+docker-compose logs -f -t --tail=1000
