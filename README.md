@@ -3,12 +3,12 @@ Module in charge of orchestrating all containers (one for each microservice, dat
 
 # Puertos:
 * backoffice front: 3003
-* mobile-app: 3004
 * api_gateway: 3005
 * backoffice_api_gateway: 3006
 * users: 3001
 * trips: 3002
 * backoffice: 3007
+* wallets: 3008
 
 # Cómo desarrollar (ambiente de dev)
 - Siempre que queramos codear (sin instalar nada en nuestras máquinas) tenemos que ejecutar ```./start_dev```

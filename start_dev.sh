@@ -2,10 +2,6 @@
 
 . .env
 
-localhost_private_ip=`hostname -I | awk '{print $1}'`
-echo $localhost_private_ip
-export HOST_PRIVATE_IP=$localhost_private_ip 
-
 # Este script se explica en el README
 
 ./stop_and_delete_containers.sh
@@ -17,18 +13,19 @@ git config --global credential.helper 'cache --timeout=86400'
 ./update_repos.sh
 
 # Lifting containers
-docker-compose up -d $USERS_DB_SERVICE_NAME
-docker-compose up -d $TRIPS_DB_SERVICE_NAME
-docker-compose up -d $BACKOFFICE_DB_SERVICE_NAME 
+# docker-compose up -d $USERS_DB_SERVICE_NAME
+# docker-compose up -d $TRIPS_DB_SERVICE_NAME
 
-docker-compose up -d $BACKOFFICE_FRONT_SERVICE_NAME
+# docker-compose up -d $BACKOFFICE_FRONT_SERVICE_NAME
 
-docker-compose up -d $API_GATEWAY_SERVICE_NAME
-docker-compose up -d $BACKOFFICE_API_GATEWAY_SERVICE_NAME
+# docker-compose up -d $API_GATEWAY_SERVICE_NAME
+# docker-compose up -d $BACKOFFICE_API_GATEWAY_SERVICE_NAME
 
-docker-compose up -d $USERS_MS_SERVICE_NAME
-docker-compose up -d $TRIPS_MS_SERVICE_NAME
-docker-compose up -d $BACKOFFICE_MS_SERVICE_NAME
+# docker-compose up -d $USERS_MS_SERVICE_NAME
+# docker-compose up -d $TRIPS_MS_SERVICE_NAME
+# docker-compose up -d $BACKOFFICE_MS_SERVICE_NAME
+# docker-compose up -d $WALLETS_MS_SERVICE_NAME
+docker-compose up -d
 
 sleep 5
 
@@ -46,6 +43,9 @@ echo "In case you want to enter inside any docker with bash, run: docker-compose
 
 # Logging in files
 mkdir logs
-./log_containers.sh
 
-docker-compose up $MOBILE_APP_SERVICE_NAME
+# Periódicamente loguea en los archivos 
+# watch -n 10 -b ./log_containers.sh & 
+
+./log_containers
+# docker-compose logs -f -t --tail=1000
