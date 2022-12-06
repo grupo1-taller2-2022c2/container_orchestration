@@ -60,6 +60,7 @@ services:
       - PORT=3000
       - LOG_LEVEL=debug
       - BACKOFFICE_BASE_URL=http://${BACKOFFICE_MS_CONTAINER_NAME}:3000
+      - TRIPS_BASE_URL=http://${TRIPS_MS_CONTAINER_NAME}:3000
     networks:
       - my_network
 
