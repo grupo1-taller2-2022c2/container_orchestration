@@ -13,18 +13,6 @@ git config --global credential.helper 'cache --timeout=86400'
 ./update_repos.sh
 
 # Lifting containers
-# docker-compose up -d $USERS_DB_SERVICE_NAME
-# docker-compose up -d $TRIPS_DB_SERVICE_NAME
-
-# docker-compose up -d $BACKOFFICE_FRONT_SERVICE_NAME
-
-# docker-compose up -d $API_GATEWAY_SERVICE_NAME
-# docker-compose up -d $BACKOFFICE_API_GATEWAY_SERVICE_NAME
-
-# docker-compose up -d $USERS_MS_SERVICE_NAME
-# docker-compose up -d $TRIPS_MS_SERVICE_NAME
-# docker-compose up -d $BACKOFFICE_MS_SERVICE_NAME
-# docker-compose up -d $WALLETS_MS_SERVICE_NAME
 docker-compose up -d
 
 sleep 5
