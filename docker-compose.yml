@@ -39,6 +39,7 @@ services:
       - USERS_BASE_URL=http://${USERS_MS_CONTAINER_NAME}:3000
       - TRIPS_BASE_URL=http://${TRIPS_MS_CONTAINER_NAME}:3000
       - WALLETS_BASE_URL=http://${WALLETS_MS_CONTAINER_NAME}:3000
+      - BACKOFFICE_BASE_URL=http://${BACKOFFICE_MS_CONTAINER_NAME}:3000
       - ENABLE_RESET=True
     networks:
       - my_network
