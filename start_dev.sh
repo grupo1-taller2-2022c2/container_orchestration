@@ -15,7 +15,7 @@ git config --global credential.helper 'cache --timeout=86400'
 # Lifting containers
 docker-compose up -d
 
-sleep 5
+sleep 10
 
 echo "Applying migrations to users database..."
 docker-compose exec $USERS_MS_SERVICE_NAME alembic upgrade head || echo "Wait for image to build and run ./start_dev.sh again..."
